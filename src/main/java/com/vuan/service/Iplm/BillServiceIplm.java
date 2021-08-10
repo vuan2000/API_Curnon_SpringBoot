@@ -41,16 +41,9 @@ public class BillServiceIplm implements BillService{
 	public void update(BillDTO billDTO) {
 		Bill bill=billDao.get(billDTO.getId());
 		if(bill != null) {
-			System.out.println("update duoc bill");
-			bill.setPriceTotal(billDTO.getPriceTotal());
-			bill.setCoupon(billDTO.getCoupon());
-			bill.setCouponPresent(billDTO.getCouponPresent());
-			
-			billDao.update(bill);
-		}else {
-			System.out.println("khong update duoc bill");
+			bill.setStatus(billDTO.getStatus());
 		}
-		
+			billDao.update(bill);
 	}
 
 	@Override

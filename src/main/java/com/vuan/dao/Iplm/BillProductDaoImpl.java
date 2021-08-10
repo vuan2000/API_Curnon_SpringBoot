@@ -53,23 +53,8 @@ public class BillProductDaoImpl extends JPARepository<BillProduct> implements Bi
 
 	@Override
 	public List<BillProduct> searchByIdBill(int id) {
-		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-		CriteriaQuery<BillProduct> criteriaQuery = criteriaBuilder.createQuery(BillProduct.class);
-		Root<BillProduct> root = criteriaQuery.from(BillProduct.class);
-		
-		List<Predicate> predicates = new ArrayList<Predicate>();
-		
-		if(StringUtils.isNotBlank(String.valueOf(id))) {
-			Predicate predicate = criteriaBuilder.like(criteriaBuilder.lower(root.get("id_bill")), 
-					"%"+ String.valueOf(id).toLowerCase() +"%");
-			
-			predicates.add(predicate);
-		}
-		
-		criteriaQuery.where(predicates.toArray(new Predicate[] {}));
-		
-		TypedQuery<BillProduct> query = entityManager.createQuery(criteriaQuery.select(root).distinct(true));
-		return query.getResultList();
+		String jql = "select bp from BillProduct bp join bp.product p join bp.bill b where b.id =:billId";
+		return entityManager.createQuery(jql, BillProduct.class).setParameter("billId", id).setFirstResult(0).setMaxResults(100).getResultList();
 	}
 
 	@Override
