@@ -68,18 +68,13 @@ public class MemberController {
 
 	@PostMapping("/login")
 	public ResponseEntity<?> login(@RequestBody UserDTO userDTO) {
-//		try {
-			//xac thuc user
-			Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userDTO.getUsername(), userDTO.getPassword()));
-			SecurityContextHolder.getContext().setAuthentication(authentication);
-			String token = jwtTokenProvider.createToken(userDTO.getUsername());
-			UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
-			return ResponseEntity.ok(new TokenDTO(token, JwtTokenProvider.validityInMilliseconds));
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return ResponseEntity.ok(e.getMessage());
-//		}
-		
+		// xac thuc user
+		Authentication authentication = authenticationManager
+				.authenticate(new UsernamePasswordAuthenticationToken(userDTO.getUsername(), userDTO.getPassword()));
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+		String token = jwtTokenProvider.createToken(userDTO.getUsername());
+		UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
+		return ResponseEntity.ok(new TokenDTO(token, JwtTokenProvider.validityInMilliseconds));
 	}
 
 	@PostMapping("/member/order")
