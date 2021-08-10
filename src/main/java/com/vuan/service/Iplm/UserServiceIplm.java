@@ -16,13 +16,13 @@ import com.vuan.dao.UserDao;
 import com.vuan.entity.User;
 import com.vuan.model.SearchUserDTO;
 import com.vuan.model.UserDTO;
-import com.vuan.model.UserPrincipal;
+import com.vuan.securiry.principal.UserPrincipal;
 import com.vuan.service.UserService;
 import com.vuan.utils.PasswordGenerator;
 
 @Service
 @Transactional
-public class UserServiceIplm implements UserService,UserDetailsService {
+public class UserServiceIplm implements UserService {
 	@Autowired
 	UserDao userDao;
 	
@@ -88,6 +88,12 @@ public class UserServiceIplm implements UserService,UserDetailsService {
 		User user = userDao.getByUserName(username);
 		return convert(user);
 	}
+	
+	@Override
+	public Boolean exitsUsername(String username) {
+		System.out.println("service user "+userDao.exitsUsername(username));
+		return userDao.exitsUsername(username) ? true : false;
+	}
 
 	@Override
 	public List<UserDTO> searchUser(SearchUserDTO searchUserDTO) {
@@ -144,22 +150,4 @@ public class UserServiceIplm implements UserService,UserDetailsService {
 		return count;
 	}
 
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		User user = userDao.getByUserName(username);
-		if(user == null) {
-			throw new UsernameNotFoundException("khong co user");
-		}
-		System.out.println("co user");
-		List<SimpleGrantedAuthority> authorities = new ArrayList<SimpleGrantedAuthority>();
-		authorities.add(new SimpleGrantedAuthority(user.getRole()));
-		
-		UserPrincipal userPrincipal = new UserPrincipal(user.getUsername(), user.getPassword(), user.getEnabled(), true,
-				true, true, authorities);
-		
-		userPrincipal.setId(user.getId());
-		userPrincipal.setName(user.getName());
-		
-		return userPrincipal;
-	}
 }

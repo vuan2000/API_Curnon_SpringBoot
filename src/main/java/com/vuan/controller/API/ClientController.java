@@ -1,6 +1,8 @@
 package com.vuan.controller.API;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +17,7 @@ import com.vuan.model.CategoryDTO;
 import com.vuan.model.CouponDTO;
 import com.vuan.model.ProductDTO;
 import com.vuan.model.ResponseDTO;
+import com.vuan.model.ResponseErrorDTO;
 import com.vuan.model.SearchCategoryDTO;
 import com.vuan.model.SearchProductDTO;
 import com.vuan.model.UserDTO;
@@ -84,12 +87,13 @@ public class ClientController {
 	}
 
 	@PostMapping("/register")
-	public UserDTO register(@ModelAttribute UserDTO userDTO) {
+	public ResponseEntity<?> register(@ModelAttribute UserDTO userDTO) {
+		if(userService.exitsUsername(userDTO.getUsername())) {
+			return new ResponseEntity<>(new ResponseErrorDTO("The username exits! Please try again") ,HttpStatus.CONFLICT );
+		}
 		userDTO.setEnabled(true);
-		userDTO.setName("");
-		userDTO.setRole("ROLE_MEMBER");;
-		userService.add(userDTO);;
-		return userDTO;
+		userService.add(userDTO);
+		return new ResponseEntity<>(new ResponseErrorDTO("Create user successfull!") ,HttpStatus.OK);
 	}
 	
 }

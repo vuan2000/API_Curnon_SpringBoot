@@ -27,7 +27,7 @@ public class User implements Serializable {
 	@NonNull
 	private int id;
 
-	@Column(name = "name")
+	@Column(name = "name" ,columnDefinition = "")
 	private String name;
 	
 	@Column(name = "age")

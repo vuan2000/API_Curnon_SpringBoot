@@ -16,6 +16,8 @@ public interface UserDao {
 	User get(int id);
 
 	User getByUserName(String username);
+	
+	Boolean exitsUsername(String username);
 
 	List<User> searchUser(SearchUserDTO searchUserDTO);
 	

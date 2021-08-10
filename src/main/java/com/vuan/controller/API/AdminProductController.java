@@ -53,9 +53,11 @@ public class AdminProductController {
 	public void edit(@ModelAttribute ProductDTO productDTO) {
 		System.out.println("update product");
 		System.out.println(productDTO);
+		ProductDTO preProductDTO = productService.get(productDTO.getId());
 		if(productDTO.getImageFile() != null) {
 			System.out.println("co anh");
 			String fileName = storageService.uploadFile(productDTO.getImageFile());
+			storageService.deleteFile(preProductDTO.getImage());
 			productDTO.setImage(fileName);
 		}else {
 			System.out.println("khong co anh");

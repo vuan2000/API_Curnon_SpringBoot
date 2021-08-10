@@ -32,8 +32,7 @@ public class AdminCouponController {
 	}
 
 	@PutMapping(value = "/admin/coupon/{id}")
-	public CouponDTO update(@RequestBody CouponDTO couponDTO ,@PathVariable int id) {
-		couponDTO.setId(id);
+	public CouponDTO update(@RequestBody CouponDTO couponDTO) {
 		couponService.edit(couponDTO);
 		return couponDTO;
 	}

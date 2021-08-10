@@ -15,6 +15,8 @@ public interface UserService {
 	UserDTO get(int id);
 
 	UserDTO getByUserName(String username);
+	
+	Boolean exitsUsername(String username);
 
 	List<UserDTO> searchUser(SearchUserDTO searchUserDTO);
 	

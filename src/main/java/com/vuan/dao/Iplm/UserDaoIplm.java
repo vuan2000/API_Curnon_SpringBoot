@@ -43,6 +43,22 @@ public class UserDaoIplm extends JPARepository<User> implements UserDao {
 		TypedQuery<User> typedQuery = entityManager.createQuery(criteriaQuery.select(root).distinct(true));
 		return typedQuery.getSingleResult();
 	}
+	
+	@Override
+	public Boolean exitsUsername(String username) {
+		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+		CriteriaQuery<User> criteriaQuery = criteriaBuilder.createQuery(User.class);
+		Root<User> root = criteriaQuery.from(User.class);
+
+		criteriaQuery.select(root).where(criteriaBuilder.equal(criteriaBuilder.lower(root.get("username")), username.toLowerCase()));
+
+		TypedQuery<User> typedQuery = entityManager.createQuery(criteriaQuery.select(root));
+		try {
+			return typedQuery.getSingleResult() != null  ? true : false;
+		} catch (Exception e) {
+			return false;
+		}
+	}
 
 	@Override
 	public List<User> searchUser(SearchUserDTO searchUserDTO) {

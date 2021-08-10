@@ -11,8 +11,14 @@ public class ResponseErrorDTO {
 		this.code = code;
 		this.message = message;
 	}
-
+	
 	public ResponseErrorDTO() {
 
+	}
+
+
+	public ResponseErrorDTO(String message) {
+		super();
+		this.message = message;
 	}
 }
