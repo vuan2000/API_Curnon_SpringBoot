@@ -37,7 +37,4 @@ public class Coupon implements Serializable{
 
 	@Column(name = "present")
 	private int present;
-	
-	@Column(name = "expired_date")
-	private Date expiredDate;
 }

@@ -7,10 +7,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import com.vuan.entity.User;
-import lombok.AllArgsConstructor;
+
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
 
 @Data
 public class UserPrincipal implements UserDetails {
@@ -56,7 +54,6 @@ public class UserPrincipal implements UserDetails {
 				user.getUsername() ,user.getPassword() ,user.getAddress() ,user.getGender() ,
 				user.getPhone() ,user.getEmail() ,user.getAvatar());
 	}
-
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

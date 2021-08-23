@@ -51,6 +51,9 @@ public class AdminAccountController {
 	
 	@DeleteMapping("/admin/account/{id}")
 	public void delete(@PathVariable(name = "id") int id) {
+		UserDTO userDTO = userService.get(id);
+		if(userDTO.getAvatar() != null)
+			storageService.deleteFile(userDTO.getAvatar());
 		userService.delete(id);
 	}
 	

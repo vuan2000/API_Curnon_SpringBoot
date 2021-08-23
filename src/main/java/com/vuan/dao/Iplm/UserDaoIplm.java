@@ -28,7 +28,6 @@ public class UserDaoIplm extends JPARepository<User> implements UserDao {
 
 	@Override
 	public User get(int id) {
-
 		return entityManager.find(User.class, id);
 	}
 

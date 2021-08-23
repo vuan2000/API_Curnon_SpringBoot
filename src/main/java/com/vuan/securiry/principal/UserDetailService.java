@@ -22,5 +22,8 @@ public class UserDetailService implements UserDetailsService{
 		if(user.getUsername() == null) throw new UsernameNotFoundException("Not found User ");
 		return UserPrincipal.build(user);
 	}
-
+	public static void main(String[] args) {
+		int arr [] = {4};
+		System.out.print(arr[0]);
+	}
 }

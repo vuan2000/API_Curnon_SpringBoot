@@ -22,9 +22,7 @@ public class CouponServiceIplm implements CouponService{
 	public void add(CouponDTO couponDTO) {
 		Coupon coupon=new Coupon();
 		coupon.setCode(couponDTO.getCode());
-		coupon.setPresent(couponDTO.getPresent());
-		coupon.setExpiredDate(DateTimeUtils.parseDate(couponDTO.getExpiredDate(), DateTimeUtils.DD_MM_YYYY));
-		
+		coupon.setPresent(couponDTO.getPresent());	
 		couponDao.add(coupon);
 	}
 
@@ -35,7 +33,6 @@ public class CouponServiceIplm implements CouponService{
 			coupon.setId(couponDTO.getId());
 			coupon.setCode(couponDTO.getCode());
 			coupon.setPresent(couponDTO.getPresent());
-			coupon.setExpiredDate(DateTimeUtils.parseDate(couponDTO.getExpiredDate(), DateTimeUtils.DD_MM_YYYY));
 			couponDao.update(coupon);
 		}		
 	}
@@ -76,7 +73,6 @@ public class CouponServiceIplm implements CouponService{
 		couponDTO.setId(coupon.getId());
 		couponDTO.setCode(coupon.getCode());
 		couponDTO.setPresent(coupon.getPresent());
-		couponDTO.setExpiredDate(DateTimeUtils.formatDate(coupon.getExpiredDate(), DateTimeUtils.DD_MM_YYYY));
 		return couponDTO;
 	}
 

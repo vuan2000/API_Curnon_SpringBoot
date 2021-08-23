@@ -45,7 +45,8 @@ public class AdminProductController {
 	@DeleteMapping("/admin/product/{id}")
 	public void delete(@PathVariable(name = "id") int id) {
 		ProductDTO productDTO = productService.get(id);
-		storageService.deleteFile(productDTO.getImage());
+		if(productDTO.getImage() != null)
+			storageService.deleteFile(productDTO.getImage());
 		productService.delete(id);
 	}
 	
