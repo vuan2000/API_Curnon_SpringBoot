@@ -44,12 +44,6 @@ public class ProductDaoIplm extends JPARepository<Product> implements ProductDao
 			predicates.add(predicate);
 			
 		}
-//		if(searchProductDTO.getFormPrice() !=  searchProductDTO.getToPrice()) {
-//			Predicate predicate1 = (Predicate) Restrictions.gt("price", searchProductDTO.getFormPrice() );
-//			Predicate predicate2 = (Predicate) Restrictions.lt("price", searchProductDTO.getToPrice() );
-//			
-//			predicates.add(criteriaBuilder.and(predicate1 ,predicate2));
-//		}
 		criteriaQuery.where(predicates.toArray(new Predicate[] {}));
 		
 		TypedQuery<Product> typedQuery = entityManager.createQuery(criteriaQuery.select(root).distinct(true));
@@ -74,12 +68,6 @@ public class ProductDaoIplm extends JPARepository<Product> implements ProductDao
 			predicates.add(predicate);
 			
 		}
-//		if(searchProductDTO.getFormPrice() !=  searchProductDTO.getToPrice()) {
-//			Predicate predicate1 = (Predicate) Restrictions.gt("price", searchProductDTO.getFormPrice() );
-//			Predicate predicate2 = (Predicate) Restrictions.lt("price", searchProductDTO.getToPrice() );
-//			
-//			predicates.add(criteriaBuilder.and(predicate1 ,predicate2));
-//		}
 		criteriaQuery.where(predicates.toArray(new Predicate[] {}));
 		
 		TypedQuery<Long> typedQuery = entityManager.createQuery(criteriaQuery.select(criteriaBuilder.count(root)));
